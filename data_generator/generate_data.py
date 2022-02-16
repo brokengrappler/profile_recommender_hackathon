@@ -9,18 +9,18 @@ faker_seed = 2022
 ############### SELECTION OF FEATURES AND DESCRIPTIONS #####################
 int_features = {
     'AGE':(18,80),            # between 18 - 65
-    'ETHNICITY_ID':8,         # 1-9
-    'BODYTYPE_ID':5,          # 1-6
-    'RELATIONSHIPTYPE_ID':7,  # 1-8
-    'SHOWAGE':1,              # boolean
-    'SHOWDISTANCE':1,         # boolean
-    'SEXUALPOSITION_ID':6,    # 1-7
-    'GENDER_CATEGORY':12,      # 1-13
-    'PRONOUNS_CATEGORY':3,    # 1-4
-    'TRIBE_IDS':12,            # 1-13
-    'THIRD_PARTY_TYPE':3,     # 0-4
-    'HAS_PHONE':1,            # Boolean
-    'NSFW_ID':2               # 1-3
+    'ETHNICITY_ID':(1,9),         # 1-9
+    'BODYTYPE_ID':(1,6),          # 1-6
+    'RELATIONSHIPTYPE_ID':(1,8),  # 1-8
+    'SHOWAGE':2,              # boolean
+    'SHOWDISTANCE':2,         # boolean
+    'SEXUALPOSITION_ID':(1,7),    # 1-7
+    'GENDER_CATEGORY': (1,13),      # 1-13
+    'PRONOUNS_CATEGORY': (1,4),    # 1-4
+    'TRIBE_IDS': (1,13),            # 1-13
+    'THIRD_PARTY_TYPE': 5,     # 0-4
+    'HAS_PHONE':2,            # Boolean
+    'NSFW_ID': (1,3)              # 1-3
 }
 #
 # faker_features = [
@@ -47,9 +47,9 @@ def generate_int_features(features):
     fake_int_features = {}
     for k, v in features.items():
         if isinstance(v, tuple):
-            fake_int_features[k] = int(np.random.choice(range(v[0], v[1])))
+            fake_int_features[k] = int(np.random.choice(range(v[0], v[1]+1)))
         else:
-            fake_int_features[k] = int(np.random.choice(v)+1)
+            fake_int_features[k] = int(np.random.choice(v))
     return fake_int_features
 
 def generate_faker_features(faker_seed):
