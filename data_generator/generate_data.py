@@ -4,8 +4,6 @@ from faker import Faker
 import json
 import sys
 
-faker_seed = 2022
-
 ############### SELECTION OF FEATURES AND DESCRIPTIONS #####################
 int_features = {
     'AGE':(18,80),            # between 18 - 65
@@ -52,17 +50,14 @@ def generate_int_features(features):
             fake_int_features[k] = int(np.random.choice(v)+1)
     return fake_int_features
 
-def generate_faker_features(faker_seed):
+def generate_faker_features():
     '''
     Generate data using faker library
-    :param
-        faker_seed: global var
     :return:
         dict with key and values
     '''
     faker_features = {}
     fake = Faker()
-    Faker.seed(faker_seed)
     reg=''
     while reg != 'Los_Angeles':
         loc_samp = fake.local_latlng()
@@ -79,18 +74,17 @@ def generate_misc_features():
     # random app class
     return np.random.choice(['Free', 'Xtra', 'Unlimited', 'Free_Xtra', 'Free_NoAds', 'Free_Unlimited'])
 
-def aggregate_fake_features(int_features, faker_seed):
+def aggregate_fake_features(int_features):
     '''
     Aggregate features generated using random int and faker module
     :param
         int_features: dictionary with feature name as key and either int to provide range (0:int) or tuple if
         range is specified (e.g., (18,70) for age range)
-        faker_seed: seed for recreation of list
     :return:
         dictionary of all features
     '''
     aggregate_features = dict(generate_int_features(int_features))
-    aggregate_features.update(generate_faker_features((faker_seed)))
+    aggregate_features.update(generate_faker_features())
     return aggregate_features
 
 def generate_fake_profiles(n_samples):
@@ -98,7 +92,7 @@ def generate_fake_profiles(n_samples):
     for _ in range(n_samples):
         # profile_id is random int between 1000000, 10000000
         profile_id = randint(1000000, 10000000)
-        user_data = aggregate_fake_features(int_features, faker_seed)
+        user_data = aggregate_fake_features(int_features)
         n_sample_dict[profile_id] = user_data
     return n_sample_dict
 
