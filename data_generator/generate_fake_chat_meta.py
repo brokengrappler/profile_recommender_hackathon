@@ -9,7 +9,6 @@ int_features = {
     'n_messages':40,
     'user1_sent_picture':2,            # Boolean
     'user2_sent_picture':2,            # Boolean
-    'sentlocation':2               # Either User 1 or User 2 sent location: Boolean
 }
 
 def get_profile_ids(user_json='fake_profiles.json'):
